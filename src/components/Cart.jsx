@@ -26,7 +26,11 @@ export default function Cart({onClose}) {
                 {cart.cartItems.length > 0 ?
                 cart.cartItems && cart.cartItems.map(item => (
                     <li className="flex items-center mb-4" key={item.id}>
-                        <img className="w-10 h-10 rounded" src={`./images/${item.img}.png`} alt="" />
+                        <img
+                        className="w-10 h-10 rounded"
+                        src={`./images/${item.img}.png`}
+                        //src={`${BASE_URL}images/${item.img}.png`}
+                        alt="" />
                         <p className="mr-auto ml-2 text-lg font-semibold">{item.title}</p>
                         <select
                         onChange={e => dispatch(updateItemFromSelect({value: e.target.value, id: item.id}))}

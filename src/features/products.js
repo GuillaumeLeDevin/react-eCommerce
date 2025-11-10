@@ -23,10 +23,17 @@ export const products = createSlice({
 });
 
 export function getProductsList(action) {
-    return function (dispatch, getState) {
-        fetch("/data/inventory.json")
-        .then(response => response.json())
-        .then(data => dispatch(addProduct(data.products)))
+    return async function (dispatch) {
+        try {
+            const res = await fetch(`${import.meta.env.BASE_URL}data/inventory.json`);
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            const data = await res.json();
+            dispatch(addProduct(data.products));
+            } catch (err) {
+            console.error("Erreur lors du chargement de l'inventaire :", err);
+        }
     }
 }
 
