@@ -7,9 +7,11 @@ export default function ProductsList() {
     const products = useSelector( state => state.products );
     const dispatch = useDispatch();
 
-    if (!products.items) {
-        dispatch(getProductsList())
-    }
+    useEffect(() => {
+        if (!products.items) {
+        dispatch(getProductsList());
+        }
+    }, [products.items, dispatch]);
     console.log(products)
   return (
     <>
