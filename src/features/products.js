@@ -1,41 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    items: undefined,
+  items: undefined
 }
 
 export const products = createSlice({
-    name: 'products',
-    initialState,
-    reducers: {
-        addProduct: (state, action) => {
-            state.items = action.payload;
-        }
-    },
-    extraReducers: {
-        ["cart/createCartItem"]: (state, action) => {
-            state.items.find(item => item.id === action.payload.id).picked = true;
-        },
-        ["cart/deleteFromCart"]: (state, action) => {
-            state.items.find(item => item.id === action.payload.id).picked = false;
-        }
+  name: "products",
+  initialState,
+  reducers: {
+    addProducts: (state, action) => {
+      state.items = action.payload
     }
-});
+  },
+  extraReducers: {
+    ["cart/createCartItem"]: (state, action) => {
+      state.items.find(el => el.id === action.payload.id).picked = true
+    },
+    ["cart/deleteFromCart"]: (state, action) => {
+      state.items.find(el => el.id === action.payload).picked = false
+    }
+  }
+})
 
 export function getProductsList(action) {
-    return async function (dispatch) {
-        try {
-            const res = await fetch(`${import.meta.env.BASE_URL}data/inventory.json`);
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            const data = await res.json();
-            dispatch(addProduct(data.products));
-            } catch (err) {
-            console.error("Erreur lors du chargement de l'inventaire :", err);
-        }
-    }
+  return function(dispatch, getState) {
+    fetch("/data/inventory.json")
+    .then(response => response.json())
+    .then(data => dispatch(addProducts(data.products)))
+  }
 }
 
-export const { addProduct, removeProduct } = products.actions;
-export default products.reducer;
+export const {addProducts} = products.actions 
+export default products.reducer

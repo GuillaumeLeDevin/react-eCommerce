@@ -12,7 +12,7 @@ export default function ProductsList() {
   console.log(products);
   return (
     <div className="px-6">
-      <h1 className="text-slate-100 text-2xl mb-6">Here are our best products</h1>
+      <h1 className="text-slate-100 text-2xl mb-6">Here are our products</h1>
       <ul className="grid min-[500px]:grid-cols-2 md:grid-cols-3 gap-4">
         {products.items &&
           products.items.map(product => (
