@@ -22,8 +22,8 @@ export default function Cart({ onClose }) {
         </button>
         <h2 className="text-2xl mb-6">Your Cart</h2>
         <ul>
-          {cart.cartItems.length > 0
-            ? cart.cartItems.map((item) => (
+          {cart.cartItems.length > 0 ? (
+            cart.cartItems.map((item) => (
                 <li className="flex items-center mb-4" key={item.id}>
                   <img
                     className="w-10 h-10 rounded"
@@ -66,7 +66,9 @@ export default function Cart({ onClose }) {
                   </button>
                 </li>
               ))
-            : "Add items to your cart!"}
+          ) : (
+            "Add items to your cart!"
+          )}
         </ul>
         <p className="pb-4">
           Your total:{" "}
